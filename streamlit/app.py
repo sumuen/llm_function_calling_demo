@@ -11,7 +11,7 @@ from haystack.components.generators.chat import OpenAIChatGenerator
 import streamlit as st
 
 # Load the API key from the .env file, alternatively declare it in the terminal
-OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
+API_KEY = os.environ.get('API_KEY')
 
 # Prepare the OpenAIChatGenerator for Streamlit
 tools = [
@@ -104,9 +104,9 @@ if prompt := st.chat_input("ENTER YOUR MESSAGE 👇"):
         st_callback = StreamlitCallbackHandler(st.empty())
         # Initialize the chat generator
         chat_generator = OpenAIChatGenerator(
-                api_key=Secret.from_env_var("OPENROUTER_API_KEY"),
-                api_base_url="https://openrouter.ai/api/v1",
-                model="openai/gpt-4-turbo-preview",
+                api_key=Secret.from_env_var("API_KEY"),
+                api_base_url="https://api.moonshot.cn/v1",
+                model="moonshot-v1-8k",
                 streaming_callback=st_callback.on_llm_new_token)
         while True:
             # Run the chat generator, tool calls will be looped through and executed, until an assistant reply is generated
